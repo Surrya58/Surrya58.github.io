@@ -1,0 +1,68 @@
+{
+  "key": "sprinklr-jira-integrations",
+  "name": "Sprinklr Support",
+  "description": "Sprinklr Support New Ticket Integration",
+  "baseUrl": "https://integrations-qa6.sprinklr.com",
+  "authentication": {
+    "type": "jwt"
+  },
+  "lifecycle": {
+    "installed": "api/marketplace/jira-app/install",
+    "uninstalled": "api/marketplace/jira-app/uninstall"
+  },
+  "scopes": [
+    "ADMIN"
+  ],
+  "apiMigrations": {
+    "signed-install": true
+  },
+  "modules": {
+    "configurePage": {
+      "url": "api/sprinklr-support-configuration",
+      "name": {
+        "value": "Configure Sprinklr Support"
+      },
+      "conditions": [
+        {
+          "condition": "user_is_admin",
+          "invert": false
+        }
+      ],
+      "key": "sprinklr-support-configuration"
+    },
+    "jiraIssueTabPanels": [
+      {
+        "url": "api/sprinklr-support-issue-tab?issueId={issue.id}&issueKey={issue.key}",
+        "weight": 100,
+        "name": {
+          "value": "Sprinklr Support"
+        },
+        "key": "sprinklr-support"
+      }
+    ],
+    "jiraIssueGlances": [
+      {
+        "icon": {
+          "width": 0,
+          "height": 0,
+          "url": "https://images.mutinycdn.com/28db3346-3c07-46a5-80d2-601403ed1b6c/Sprinklr%20Logomark%20Burst%20Color%20RBG%20(2).png"
+        },
+        "content": {
+          "type": "label",
+          "label": {
+            "value": "Linked Tickets"
+          }
+        },
+        "target": {
+          "type": "web_panel",
+          "url": "api/sprinklr-support-linked-issues-panel?issueId={issue.id}&issueKey={issue.key}"
+        },
+        "jiraNativeAppsEnabled": false,
+        "name": {
+          "value": "Sprinklr Support"
+        },
+        "key": "sprinklr-support-issue-glance"
+      }
+    ]
+  }
+}
